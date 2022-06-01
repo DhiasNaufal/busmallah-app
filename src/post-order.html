@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Busmallah | Insya'allah Sampai Tujuan </title>
+
+    <script>
+        function openInNewTab(url) {
+            window.open(url, '_blank').focus();
+        }
+
+        function goToFood() {
+            document.getElementById("food").scrollIntoView({behavior: 'smooth'});
+        }
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="assets/aditydcp/img/favicon.ico">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="assets/icofont/icofont.min.css">
+</head>
+<body>
+    <section id="menu">
+        <nav class="navbar fixed-top transparent-bg align-items-center">
+            <div class="menu-content-top">
+                <div class="menu-logo">
+                    <div class="navbar-brand">
+                        <span class="navbar-logo">
+                            <a href="index.html">
+                                <img class="navbar-logo-img" src="assets/aditydcp/img/busmallah-logo.png" alt="Busmallah">
+                            </a>
+                        </span>
+                        <span class="navbar-caption-wrap">
+                            <a class="brand-name" href="index.html">
+                                <span id="brand"> Busmallah </span>
+                                <span class="doa" id="tagline"> Insya'allah sampai tujuan~ </span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="menu-content">
+                    <div class="navbar-btn">
+                        <a class="btn btn-primary">
+                            <span>
+                                Beli Tiket Sekarang <i class="icofont-rounded-right icon-white"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <section id="hero-post">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <h1 class="section-title">Udah tau mau ngapain aja di sana?</h1>
+            <h3 class="section-subtitle">Cari tahu lebih banyak soal apa aja yang ada di kota tujuanmu!</h3>
+            <div class="row justify-content-center align-center">
+                <div class="media-container-column col-lg-12 col-md-10 col-sm-12 align-center">
+                    <div class="row">
+                        <div class="relative col-lg-3 col-md-12">
+                            <button type="button" onclick="openInNewTab('https://hotello-app.herokuapp.com/')" class="btn form-control input btn-primary" target="_blank">
+                                Cari Hotel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigate-next" onclick="goToFood()">
+            <span class="navigate-text">Rekomendasi Tempat Makan<br>di Lokasi Tujuan</span>
+            <i class="icofont-rounded-down icon"></i>
+        </div>
+    </section>
+    <section id="food">
+        <div class="container">
+            <h1 class="section-title">Rekomendasi Kuliner</h1>
+            <div class="container food-card">
+                <div class="image" id="foodRec-image"></div>
+                <div class="details">
+                    <h2 class="card-title" id="foodRec-name"> Pogo Restaurant </h2>
+                    <div class="metadata-wrapper">
+                        <span class="metadata-small flex">
+                            <div>
+                                <i class="icofont-ui-rate-blank"></i>
+                            </div>
+                            <div class="pdl-1rm">
+                                <span id="foodRec-rating">5</span>
+                            </div>
+                        </span>
+                        <span class="metadata-small flex">
+                            <div>
+                                <i class="icofont-phone"></i>
+                            </div>
+                            <div class="pdl-1rm">
+                                <span id="foodRec-phone">+62 22 7310799</span>
+                            </div>
+                        </span>
+                        <span class="metadata-small flex">
+                            <div>
+                                <i class="icofont-dollar"></i>
+                            </div>
+                            <div class="pdl-1rm">
+                                <span id="foodRec-price"> $65,000 - $250,000 </span>
+                            </div>
+                        </span>
+                    </div>
+                    <span class="metadata-big flex">
+                        <div>
+                            <i class="icofont-ui-email"></i>
+                        </div>
+                        <div class="pdl-1rm">
+                            <span id="foodRec-email"> info@thepapandayan.com </span>
+                        </div>
+                    </span>
+                    <span class="metadata-big flex">
+                        <div>
+                            <i class="icofont-location-pin"></i>
+                        </div>
+                        <div class="pdl-1rm">
+                            <span id="foodRec-address">Jl. Gatot Subroto No.83 The Papandayan Hotel, Bandung 40262 Indonesia</span>
+                        </div>
+                    </span>
+                    <span>
+                        <p id="foodRec-description">
+                            Pago Restaurant is a new dining experience concept serving authentic Indonesian, Asian and Western specialties.
+                            Open for breakfast, lunch, and dinner, this restaurant offers extensive buffet and a la carte options.
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="container gb align-center">
+            <span>This recommendation is powered by<br><b>Easy Yummy</b></span>
+        </div>
+    </section>
+
+    <script>
+        var request = new XMLHttpRequest();
+        request.open("GET", "data/response.json", false);
+        request.send(null)
+        var result = JSON.parse(request.responseText);
+        var foodRec = result.data;
+
+        document.getElementById("foodRec-name").innerHTML = foodRec.name;
+        document.getElementById("foodRec-rating").innerHTML = foodRec.rating;
+        document.getElementById("foodRec-address").innerHTML = foodRec.address;
+        document.getElementById("foodRec-email").innerHTML = foodRec.email;
+        document.getElementById("foodRec-description").innerHTML = foodRec.description;
+        document.getElementById("foodRec-price").innerHTML = foodRec.price;
+        document.getElementById("foodRec-phone").innerHTML = foodRec.phone;
+        document.getElementById("foodRec-image").style.backgroundImage = "url('" + foodRec.image_url + "')";
+
+        var cols = document.getElementsByClassName('image');
+        for(i = 0; i < cols.length; i++) {
+            cols[i].style.backgroundImage = "url('" + foodRec.image_url + "')";
+        }
+    </script>
+</body>
+</html>
